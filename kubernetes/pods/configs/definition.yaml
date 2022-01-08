@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Pod # type of K8 object
+metadata:
+  annotations:
+    kubernetes.io/created-by: ...
+  creationTimestamp: 2016-03-18T12:37:50Z
+  generateName: kubia-
+  labels:
+    run: kubia
+  name: kubia-zxzij
+  namespace: default
+  resourceVersion: "294"
+  selfLink: /api/v1/namespaces/default/pods/kubia-zxzij
+  uid: 3a564dc0-ed06-11e5-ba3b-42010af00004
+# - Spec: contains the actual description of the pod’s contents, such as the pod’s containers, volumes, and other data
+spec:
+  containers:
+    - image: luksa/kubia
+      imagePullPolicy: IfNotPresent
+      name: kubia
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 100m
+      terminationMessagePath: /dev/termination-log
+      volumeMounts:
+        - mountPath: /var/run/secrets/k8s.io/servacc
+          name: default-token-kvcqa
+          readOnly: true
+    dnsPolicy: ClusterFirst
+    nodeName: gke-kubia-e8fe08b8-node-txje
+    restartPolicy: Always
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+      - name: default-token-kvcqa
+      secret:
+        secretName: default-token-kvcqa
+# - Status: contains the current information about the running pod, such as what
+# condition the pod is in, the description and status of each container, and the
+# Pod’s internal IP and other basic info
+# - Created at run-time
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: Ready
+  containerStatuses:
+  - containerID: docker://f0276994322d247ba...
+    image: luksa/kubia
+    imageID: docker://4c325bcc6b40c110226b89fe...
+    lastState: {}
+    name: kubia
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2016-03-18T12:46:05Z
+  hostIP: 10.132.0.4
+  phase: Running
+  podIP: 10.0.2.3
+  startTime: 2016-03-18T12:44:32Z

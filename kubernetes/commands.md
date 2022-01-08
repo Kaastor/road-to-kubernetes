@@ -9,6 +9,7 @@
   kubia replicationcontroller to the external world
 * `kubectl scale rc kubia --replicas=3` - scale up number of replicas of the pod to three
 * `kubectl get pods -o wide` - IP and Node info about the pods
+* `kubectl delete all --all` - Delete all resources in current namespace.
 
 ### Labels
 
