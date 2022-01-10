@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia-rs
+spec:
+  replicas: 3 # desired number of pod instances
+  selector: # only difference to RC, complex querying
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - kubia
+    # matchLabels:
+      # app: kubia
+  template: # template for creating new pods
+    metadata:
+      labels: # must match RC selector! Otherwise RC will spin Pods indefinitely
+        app: kubia
+    spec:
+      containers:
+        - name: kubia
+          image: luksa/kubia
+          ports:
+            - containerPort: 8080

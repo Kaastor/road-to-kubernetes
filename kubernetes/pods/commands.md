@@ -1,23 +1,27 @@
-## Commands
+# Commands
 
 ### General
 
-* `kubectl get pods` - list Pods
+* `kubectl get pods` - list Pods 
+* `kubectl get pods -o wide` - IP and Node info about the pods
 * `kubectl create -f simple.yaml` - Creating a Pod based on the YAML definition
 * `kubectl get po [pod-name] -o yaml ` - Show definition of running Pod
+* `kubectl get po -a` - Show all pods (even Completed)
 * `kubectl logs [pod-name]` - Show Pod logs (instead of ssh to node and docker logs...)
+* `kubectl logs [pod-name] --previous` - Logs of previous containers runs
 * `kubectl port-forward [pod-name] 8888:8080` - When you want to talk to a specific pod without going through a service 
   (for debugging or other reasons)
   ![img.png](../../img/img2.png)
 * `kubectl delete po [pod-name]` - Delete Pod
 * `kubectl delete po -l rel=canary` - Delete Pods via selector
 * `kubectl delete po --all` - Delete Pods in current namespace
+* `kubectl edit [object] [object-name]` - Edit object's config 
 
 ### Labels
 
 * `kubectl get po --show-labels` - Show pods with labels
 * `kubectl get po -L creation_method,env` - Show pods with specified labels
-* `kubectl label po kubia-manual creation_method=manual` - Add label to existing Pod
+* `kubectl label [object] [object-name] [label]` - Add label to existing Pod
 * `kubectl label po kubia-manual-v2 env=debug --overwrite` - Change existing label value
 * `kubectl get po -l creation_method=manual` - Query Pods: all pods with certain key and value label
 * `kubectl get po -l env` - Query Pods: all pods with certain key label
