@@ -6,3 +6,4 @@
 * `docker exec -it kubia-container bash` - log into the container
 * `docker stop [container-name]`
 * `docker em [container-name]`
+* `docker build -t luksa/fortune .` - Build image with specific tag, from resources in current dir

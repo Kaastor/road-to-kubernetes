@@ -14,7 +14,9 @@
   automatically restarting individual processes if they crash and so on.
   Therefore, you need to run each process in its own container and let the K8 do the 
   job. That’s how Docker and Kubernetes are meant to be used.
-* A pod of containers allows you to run closely related processes together and provide 
+* Pods are similar to logical hosts where processes running inside
+  them share resources such as CPU, RAM, network interfaces, and others (not filesystem!).
+* A pod of multi-containers allows you to run closely related processes together and provide 
   them with (almost) the same environment as if they were all running in a single
   container, while keeping them somewhat isolated.
 * All containers in a Pod run under **the same** Network and UTS namespaces (they share
@@ -30,6 +32,7 @@
     * Do they represent a single whole or are they independent components?
     * Must they be scaled together or individually?
 * Deleting Pod means terminating all the containers that are part of that pod
+* When Pod is deleted/restarted, it looses all it's filesystem data.
 
 ## Labels
 ![img.png](../../img/img3.png)

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-dir
+spec:
+  containers:
+    - image: luksa/fortune # Container #1
+      name: html-generator
+      volumeMounts:
+        - name: html
+          mountPath: /var/htdocs # volume will be mounted in this dir on the container
+    - image: nginx:alpine # Container #1
+      name: web-server
+      volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html # volume will be mounted in this dir on the container
+          readOnly: true
+      ports:
+        - containerPort: 80
+          protocol: TCP
+  volumes: # single emptyDir volume that's mounted in the two containers above
+    - name: html
+      emptyDir: {}
+      medium: Memory # use memory instead of disk
