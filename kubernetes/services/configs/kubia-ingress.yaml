@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubia
+spec:
+  rules:
+    # all HTTP requests received
+    # by the Ingress controller, in which the host kubia.example.com is requested, will be
+    # sent to the kubia-nodeport service on port 80
+    - host: kubia.example.com # Ingress maps domain name to you service!
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: kubia-nodeport # in GKE Ingress must point to a NodePort
+            servicePort: 80
+        - path: /kubia # another endpoint: kubia.example.com/kubia
+          backend:
+            serviceName: kubia # Service 'kubia'
+            servicePort: 80
+        - path: /foo # another endpoint: kubia.example.com/foo
+          backend:
+            serviceName: bar # Service 'bar'
+            servicePort: 80
+    - host: foo.example.com # another domain name
+      http:
+        paths:
+          - path: / # another endpoint: foo.example.com/
+            backend:
+              serviceName: bar # Service 'bar'
+              servicePort: 80

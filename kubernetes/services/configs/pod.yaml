@@ -1,0 +1,9 @@
+kind: Pod
+spec:
+containers:
+  - name: kubia
+    ports: # you can specify names for ports and use them in Service
+      - name: http
+        containerPort: 8080
+      - name: https
+        containerPort: 8443

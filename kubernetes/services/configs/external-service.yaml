@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # name of the service must match the name of the Endpoints object
+  name: external-service
+# no selectors! no endpoints will be created
+spec:
+  ports:
+  - port: 80

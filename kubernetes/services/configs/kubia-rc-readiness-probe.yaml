@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    app: kubia
+  template:
+    metadata:
+      labels:
+        app: kubia
+    spec:
+      containers: # spec of Pods inside RC
+        - name: kubia
+          image: luksa/kubia
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe: # probe may be defined for each container in the Pod
+            exec:
+              command: # periodically perform of command `ls /var/ready`
+                - ls # returns exit code zero if the file exists, or a non-zero exit code otherwise
+                - /var/ready
