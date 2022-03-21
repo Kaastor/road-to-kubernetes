@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: basic-job
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    metadata:
+      name: example-job
+    spec:
+      containers:
+        - name: pi
+          image: perl
+          command: ["perl"]
+          args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never # Do not restart containers after they exit
