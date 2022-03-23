@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: demo
+spec:
+  hard:
+    # maximum resources all containers in namespace can have
+    requests.cpu: 500m  # 5 containers with 100m or 50 with 10m, etc.
+    requests.memory: 100Mib
+    limits.cpu: 700m
+    limits.memory: 500 Mib

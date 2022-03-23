@@ -1,0 +1,36 @@
+apiVersion:  autoscaling/v2beta2 # since v1.23 is stable - /v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: kubia-hpa
+spec:
+  scaleTargetRef: # what will be scaled
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kubia
+  minReplicas: 1
+  maxReplicas: 5
+  metrics: # on what info scaling will be executed
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Pods
+    pods:
+      metric:
+        name: packets-per-second # need 3rd party metrics 'adapter'
+      target:
+        type: AverageValue
+        averageValue: 1k
+  - type: Object
+    object:
+      metric:
+        name: requests-per-second
+      describedObject:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        name: main-route
+      target:
+        type: Value
+        value: 10k

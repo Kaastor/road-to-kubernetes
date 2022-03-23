@@ -9,4 +9,6 @@
       namespace which holds K8 specific Pods.
 * **Be careful:** **namespaces** to not guarantee resources isolation. Pods could be communicating with each other even if they are in separate namespaces.
   Whether namespaces provide network isolation depends on which networking solution is deployed with Kubernetes.
-
+* You can demand to create resource in the namespace via `config file @see ./config/simple.yaml`
+* To change namespaces use `kubens` tool
+* Example use: per team namespace, `prod` and `test` namespaces

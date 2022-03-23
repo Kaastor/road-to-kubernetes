@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual # Name of the Pod
+namespace: test # this resource will always be created in that namespace
+spec:
+  containers:
+  - image: luksa/kubia # Container image
+    name: kubia # Name of the container
+    ports:
+    - containerPort: 8080 # Port the app is listening on
+      protocol: TCP
