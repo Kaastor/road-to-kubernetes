@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: preemptible-job
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    metadata:
+      name: preemptible-job
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-preemptible: "true"
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      containers:
+        - name: pi
+          image: perl
+          command: ["perl"]
+          args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          resources:
+            requests:
+              cpu: 500m
+      restartPolicy: Never # Do not restart containers after they exit

@@ -3,7 +3,7 @@
 * Applications running in pods can be scaled out **manually** by increasing the
   **replicas field** in the ReplicationController, ReplicaSet, Deployment, or other
   scalable resource.
-
+  
 ### Resource units in Kubernetes
 
 * Requests vs Limits
@@ -90,7 +90,7 @@ In most cases we are deploying more than one type of the workload, more than one
 It's very hard to optimize resources usage (as little as possible not used resources) with just **one type of nodes**
 Good practice is to use node pools - groups of identical nodes within the cluster
 
-### Scaling node pools
+### Scaling node pools with NAP
 
 * CA monitors the state of the entire cluster, but it is also simulating the action of scheduler **across all the existing
   node pools**. What would that have been if we enlarge pool 1, or 2, etc... (lots of combinatorics in the background)
@@ -108,7 +108,55 @@ Good practice is to use node pools - groups of identical nodes within the cluste
     ```
   * Acting as consultant to CA
   * NAP schedules GPU!
+* You can specify the default identity (either a service account or one or more scopes) for new auto-provisioned 
+  node pools using the gcloud CLI or through a configuration file.
+* New node pools do not inherit identities from other node pools. If you do not specify a default identity, 
+  workloads running in auto-provisioned node pools cannot access any Google Cloud APIs. For example, if you pull 
+  container images from a private Artifact Registry repository, 
+  you must add the https://www.googleapis.com/auth/devstorage.read_only scope.
+  
+## Taints and Tolerations
+
+![img.png](../../img/img16.png)
+
+### Preemptible VMs
+
+* Look `@job-preemptible-vm.yaml`. NAP will automatically create preemptible VM node pool if Pod/Job spec contains 
+`nodeSelector` and `toleration` for preemptible VMs.
+```
+nodeSelector:
+  cloud.google.com/gke-preemptible: "true"
+tolerations:
+  - key: cloud.google.com/gke-preemptible
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
+```
+### Spot VMs
+
+* Analogous behaviour like in preemptible machine case.
+* In Pods and Job use `nodeSelector` with `cloud.google.com/gke-spot: "true"` value.
+* [Scheduling workloads on Spot VMs](https://cloud.google.com/kubernetes-engine/docs/concepts/spot-vms#scheduling_workloads_on_spot_vms)
+* Add toleration for `cloud.google.com/gke-spot="true":NoSchedule` taint in Pod spec:
+```
+nodeSelector:
+  cloud.google.com/gke-spot: "true"
+tolerations:
+  - key: cloud.google.com/gke-spot
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
+```
+### Best practices
+
+* Specify correct resource requests for Pods
+* Use PodDisruptionBudget to maintain the app's availability
+* Consider using `optimize-utilization`: Prioritize optimizing utilization over keeping spare resources in the cluster. 
+  When enabled, Cluster Autoscaler will scale down the cluster more aggressively: it can remove more nodes, and remove nodes faster. 
+  (money saver, [youtube link](https://www.youtube.com/watch?v=9dRIX029d_U))
 
 ## Resources
 
+* https://gcpinstances.doit-intl.com/ - GCP instances from cheapest 
 * https://www.youtube.com/watch?v=fLOkcXcxKE4
+* https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/proposals/node_autoprovisioning.md

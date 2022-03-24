@@ -1,0 +1,17 @@
+resourceLimits: # NAP will not create a node if the total size of the cluster exceeds the specified resource limits.
+  - resourceType: 'cpu'
+    minimum: 1
+    maximum: 5
+  - resourceType: 'memory'
+    maximum: 12
+  - resourceType: 'nvidia-tesla-k80'
+    maximum: 2
+management:
+  autoRepair: true
+  autoUpgrade: true
+shieldedInstanceConfig:
+  enableSecureBoot: true
+  enableIntegrityMonitoring: true
+diskSizeGb: 100
+serviceAccount: SERVICE_ACCOUNT # specify identity default used by node auto-provisioning
+scopes: SCOPE # Google Cloud scope used by auto-provisioned node pools. To specify multiple scopes, separate the scopes by a comma (for example, SCOPE1, SCOPE2,...)

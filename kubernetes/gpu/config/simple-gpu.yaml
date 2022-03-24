@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-gpu # Name of the Pod
+spec:
+  nodeSelector: # tells K8 to deploy this only to nodes containing gpu=true label
+    gpu: "true"
+  containers:
+    - image: luksa/kubia # Container image
+      name: kubia # Name of the container
+      ports:
+        - containerPort: 8080 # Port the app is listening on
+          protocol: TCP

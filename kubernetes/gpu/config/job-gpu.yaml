@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpu-job
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    metadata:
+      name: gpu-job
+    spec:
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: experimental
+          effect: NoSchedule
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      nodeSelector: # tells K8 to deploy this only to nodes containing gpu=true label
+        gpu: "true"
+        cloud.google.com/gke-preemptible: "true"
+        accelerator: nvidia-tesla-p80
+      containers:
+        - name: pi
+          image: perl
+          command: ["perl"]
+          args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          resources:
+            limits:
+              nvidia.com/gpu: 1 # requesting 1 GPU
+      restartPolicy: Never # Do not restart containers after they exit
