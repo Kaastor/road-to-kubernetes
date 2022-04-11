@@ -19,6 +19,7 @@
       factor.
   * A TCP Socket probe tries to open a TCP connection to the specified port of the container.
   * An Exec probe executes an arbitrary command inside the container and checks the command’s exit status code.
+  * probes need a **service** to connect to Pods
 * If the **node crashes**, then Control Plane should create replacements for all the Pods that went down with the node.
   For that we need the Pods to be managed by **Controller**.
 * To **change** the controller, delete it without deleting the Pods (`--cascade=false`) and create new controller with proper selector. 

@@ -160,3 +160,5 @@ tolerations:
 * https://gcpinstances.doit-intl.com/ - GCP instances from cheapest 
 * https://www.youtube.com/watch?v=fLOkcXcxKE4
 * https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/proposals/node_autoprovisioning.md
+* https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md
+* Configure system pods - https://justin.palpant.us/tuning-cluster-autoscaler-on-gke/

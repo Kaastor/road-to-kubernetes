@@ -19,6 +19,7 @@
 * `kubectl exec [pod-name] -- curl -s http://10.111.249.153` - execute command in running container. Here curl to another Pod [Cluster-IP of the Service Pod is under].
    Double hash is needed then we want to signal the end of kubectl command options
 * `kubectl exec -it [pod-name] bash` - Log in to pod's container bash.
+* 
 
 ### Labels
 

@@ -16,6 +16,7 @@
 * `gcloud container clusters update [cluster-name] --enable-autoscaling --min-nodes=3 --max-nodes=5` - enable the Cluster Autoscaler
 * `kubectl cordon <node>` - marks the node as unschedulable (but doesn’t do anything with pods running on that node)
 * `kubectl drain <node>` - marks the node as unschedulable and then evicts all the pods from the node
+* `kubectl get configmap cluster-autoscaler-status -n kube-system -o yaml` -  check what is going on in CA 
 
 ## Node auto-provisioning (NAP)
 

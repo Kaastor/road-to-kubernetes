@@ -78,5 +78,7 @@
   
 ### Persistent Storage aka gcePersistentDisk
 
+* Manage durable storage in a cluster
+* Are independent of the Pod's lifecycle
 * Data needs to be accessible from any cluster node, it must be stored on some type of network-attached stor-
   age (NAS).

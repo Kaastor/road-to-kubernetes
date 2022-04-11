@@ -156,3 +156,7 @@ see if you can access it using its cluster IP instead of the FQDN.
 * Check whether you’re connecting to the port exposed by the service and not the target port.
 * Try connecting to the pod IP directly to confirm your pod is accepting connections on the correct port.
 * If you can’t even access your app through the pod’s IP, make sure your app isn’t only binding to localhost.
+
+## Resources
+
+* https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/
