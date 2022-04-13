@@ -8,4 +8,4 @@
 
 ## Deployment
 
-* kubectl rollout restart deployment [deployment-name]
+* `kubectl rollout restart deployment [deployment-name]` - rolling restart of the deployment
